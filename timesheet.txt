@@ -1,0 +1,9 @@
+24/07/2026
+14:30 - 17:00
+    As I was initially unsure of what content should be included in the report and among all deliverables, I started by creating a basic structure for my assignment report to follow. Using worksheets from lectures and the assignment brief, I came up with the necessary sections and an idea for what I'd include in each one. From this I also clarified the perspective from which to write the report: the prototype has just been created and you need to explain/justify your choices for that prototype's development
+
+    I created a flowchart showing the process of creating a task. This helped reveal some necessary decisions about how a tasks are created and categories are managed. It alos made me think about how tasks would be stored internally, which I debated between a list of Item() instances and a dictionary mapping categories to a list of classes, or single ids to relavent tasks. I decided on a combination of the latter 2 to: 1. align with procedural principles, 2. offer efficient ways to look up tasks by category and by ID. 
+
+    While creating my planned functions, I realised there was a need to efficiently look up task Ids by their names. Alternatively, I could have simply made the name field unique and use that as the primary key but an ID allows for persistent tracking even when other data is changed or deleted.
+
+KSBs: K21, K25, S19, S22

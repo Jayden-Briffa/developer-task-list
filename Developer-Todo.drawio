@@ -1,0 +1,106 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.0.9 Chrome/128.0.6613.186 Electron/32.2.5 Safari/537.36" version="26.0.9">
+  <diagram name="Add task" id="5tUh9aIDLmJUmyGI0x_z">
+    <mxGraphModel dx="1036" dy="606" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="mr9fpAu__WJbIsOqqVBp-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="mr9fpAu__WJbIsOqqVBp-2" target="mr9fpAu__WJbIsOqqVBp-5" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="mr9fpAu__WJbIsOqqVBp-2" value="Start" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.terminator;whiteSpace=wrap;" parent="1" vertex="1">
+          <mxGeometry x="140" y="60" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="mr9fpAu__WJbIsOqqVBp-24" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="mr9fpAu__WJbIsOqqVBp-5" target="mr9fpAu__WJbIsOqqVBp-19" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="mr9fpAu__WJbIsOqqVBp-5" value="User inputs task name, description, and complete_by" style="shape=parallelogram;html=1;strokeWidth=2;perimeter=parallelogramPerimeter;whiteSpace=wrap;rounded=1;arcSize=12;size=0.23;" parent="1" vertex="1">
+          <mxGeometry x="110" y="160" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="mr9fpAu__WJbIsOqqVBp-41" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="mr9fpAu__WJbIsOqqVBp-11" target="mr9fpAu__WJbIsOqqVBp-38" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="mr9fpAu__WJbIsOqqVBp-11" value="Does the category already exist?" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.decision;whiteSpace=wrap;" parent="1" vertex="1">
+          <mxGeometry x="140" y="500" width="100" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="mr9fpAu__WJbIsOqqVBp-35" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="mr9fpAu__WJbIsOqqVBp-14" target="mr9fpAu__WJbIsOqqVBp-32" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="350" y="440" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="mr9fpAu__WJbIsOqqVBp-37" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="mr9fpAu__WJbIsOqqVBp-14" target="mr9fpAu__WJbIsOqqVBp-36" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="mr9fpAu__WJbIsOqqVBp-14" value="Does the user wish to create the category?" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.decision;whiteSpace=wrap;" parent="1" vertex="1">
+          <mxGeometry x="300" y="500" width="100" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="mr9fpAu__WJbIsOqqVBp-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="mr9fpAu__WJbIsOqqVBp-11" target="mr9fpAu__WJbIsOqqVBp-14" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="mr9fpAu__WJbIsOqqVBp-28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="mr9fpAu__WJbIsOqqVBp-19" target="mr9fpAu__WJbIsOqqVBp-5" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="310" y="320" />
+              <mxPoint x="310" y="190" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="mr9fpAu__WJbIsOqqVBp-33" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="mr9fpAu__WJbIsOqqVBp-19" target="mr9fpAu__WJbIsOqqVBp-32" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="mr9fpAu__WJbIsOqqVBp-19" value="Task inputs are valid" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.decision;whiteSpace=wrap;" parent="1" vertex="1">
+          <mxGeometry x="140" y="270" width="100" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="mr9fpAu__WJbIsOqqVBp-32" value="User inputs a category" style="shape=parallelogram;html=1;strokeWidth=2;perimeter=parallelogramPerimeter;whiteSpace=wrap;rounded=1;arcSize=12;size=0.23;" parent="1" vertex="1">
+          <mxGeometry x="110" y="410" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="mr9fpAu__WJbIsOqqVBp-34" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="mr9fpAu__WJbIsOqqVBp-32" target="mr9fpAu__WJbIsOqqVBp-11" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="mr9fpAu__WJbIsOqqVBp-39" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="mr9fpAu__WJbIsOqqVBp-36" target="mr9fpAu__WJbIsOqqVBp-38" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="mr9fpAu__WJbIsOqqVBp-36" value="Create category with the given name" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;" parent="1" vertex="1">
+          <mxGeometry x="300" y="620" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="iYjJt9vFDY8zTwy4k-FB-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="mr9fpAu__WJbIsOqqVBp-38" target="iYjJt9vFDY8zTwy4k-FB-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="mr9fpAu__WJbIsOqqVBp-38" value="Add task to local tasksById" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;" parent="1" vertex="1">
+          <mxGeometry x="140" y="720" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="mr9fpAu__WJbIsOqqVBp-45" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="mr9fpAu__WJbIsOqqVBp-42" target="mr9fpAu__WJbIsOqqVBp-44" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="mr9fpAu__WJbIsOqqVBp-42" value="Output new task&#39;s properties" style="shape=parallelogram;html=1;strokeWidth=2;perimeter=parallelogramPerimeter;whiteSpace=wrap;rounded=1;arcSize=12;size=0.23;" parent="1" vertex="1">
+          <mxGeometry x="110" y="1000" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="mr9fpAu__WJbIsOqqVBp-44" value="End" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.terminator;whiteSpace=wrap;" parent="1" vertex="1">
+          <mxGeometry x="140" y="1100" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="mr9fpAu__WJbIsOqqVBp-46" value="Lets users create a category smoothly&amp;nbsp;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="220" y="490" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="mr9fpAu__WJbIsOqqVBp-48" value="Reuses create_category() from another part of the code" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="410" y="630" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="iYjJt9vFDY8zTwy4k-FB-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="iYjJt9vFDY8zTwy4k-FB-1" target="mr9fpAu__WJbIsOqqVBp-42">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="iYjJt9vFDY8zTwy4k-FB-1" value="Add task to local tasksByCategory&amp;nbsp;" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="140" y="900" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="iYjJt9vFDY8zTwy4k-FB-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="iYjJt9vFDY8zTwy4k-FB-4" target="iYjJt9vFDY8zTwy4k-FB-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="iYjJt9vFDY8zTwy4k-FB-4" value="Save tasksById to persistent tasks.json" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="140" y="810" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="iYjJt9vFDY8zTwy4k-FB-9" value="Only saving tasksById limits the impact of syncing issues&amp;nbsp;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="260" y="820" width="100" height="40" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
