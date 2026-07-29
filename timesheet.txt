@@ -6,4 +6,7 @@
 
     While creating my planned functions, I realised there was a need to efficiently look up task Ids by their names. Alternatively, I could have simply made the name field unique and use that as the primary key but an ID allows for persistent tracking even when other data is changed or deleted.
 
+29/07/2026
+15:30 - 17:00
+    Having completed most of the test table, I started thinking about how I'd integrate my planning information (contained in multiple markdown files) into the assignment. I started by writing some of my test strategy, then I wrote about my language justification under implementation. I was also careful to note down any thoughts about future developments, requirements, new tests etc in their appropriate files. This was a much free-er workflow than I was used to and I felt very productive using it as I seemlessly jumped between subtasks.
 KSBs: K21, K25, S19, S22
