@@ -1,3 +1,4 @@
+# Planned functions
 | Section | Name | Processing | Input | Output |
 |---|---|---|---|---|
 | Model | `saveTasks` | Write to `tasks.json` and load new state. | `tasksById: dict[str, Task]` | `tasksById`, `taskIdsByCategory`, `taskIdsByName` |
@@ -18,3 +19,13 @@
 | Validators | `validateChoice` | Validate that the given choice corresponds to a valid choice. | `choices: dict[int, string]` | `isValid: boolean` |
 | Validators | `validateTask` | Validate that a task data is valid. | `task: Task` | `isValid: boolean` |
 | Validators | `validateCategory` | Validate that a category name is valid. | `category: string` | `isValid: boolean` |
+
+# Schemas
+## Task
+| name | description | type | constraints | required/optional |
+| --- | --- | --- | --- | --- |
+| id | Persistent unique identifier for each task | integer | | required |
+| name | User-friendly summary of task | string | 3 <= len() <= 32 | required |
+| description | Full task details | string | len() <= 255 | optional | 
+| deadline | When the task should be completed by | string | Can be converted to Date("dd/mm/yyyy") | optional |
+| category | Which group of tasks is the task in | string | 3 <= len() <= 16 | required |
