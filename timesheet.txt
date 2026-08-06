@@ -12,5 +12,15 @@
 
 31/07/2026
 16:00 - 17:00
+	My formative feedback was largely positive, with areas to improve revolving around sections I have yet to complete as the program is not complete yet including implementation, debug log, etc. Key points I wasn't already aware of included:
+	- Adding code extracts to show key processes like file handling or how consistency is maintained throughout CRUD operations
+	- Document debugging processes
+	- Expand some debugging examples into full explanations (and feed the reflection)
+	- How testing affected the design
+	- Add limitations section to future developments
+    
+    Created the basic model. My instinct was to create a class which owned the state management but this is not procedural as the brief required. I will ask whether to prioritise my method's readability or the brief's loose procedural programming requirement.
 
+    While I originally wasn't going to write automated tests, I realised that this would be a good oppportunity to learn about testing in python and would likely save time in the long run, while providing documentation of tests performed and how they were performed
+    
 KSBs: K21, K25, S19, S22

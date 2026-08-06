@@ -10,6 +10,7 @@ from outputs import outputError
 STANDARD_PRICE = 3.50
 HEAVY_PRICE = 5.50
 
+
 def get_parcel_weight():
     """Ask the user for a parcel weight."""
 
