@@ -4,6 +4,7 @@ This split is inspired by REST API where data management is a core function. It 
 # Why switch to automated tests
 More code to maintain but offers documentation and speed
 Better organisation of similar or adjacent tests
+Automates regression tests
 
 # Model
 ## Why change the Model method names
@@ -21,3 +22,6 @@ This would duplicate data, leading to potential misalignmnet and increasing the 
 The model is at the heart of the application and must therefore make any errors clear and visible. It is the job of the controller to make a good user experience, not the model.
 
 ## Why use an OOP pattern only for the model
+
+## Why create and delete categories automatically 
+This better maintains separation of concerns than a separate method as category management isn't necessary outside of specific processes like adding, updating, or deleting tasks. This means it is tightly coupled to the rest of the state

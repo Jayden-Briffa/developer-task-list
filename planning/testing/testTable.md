@@ -1,3 +1,5 @@
+<!-- TODO: Add hardware env, data size, and repetitions to performance tests -->
+
 ## Values
 - taskById{standard}= {1: Task{name:"task1"}, 2: Task{name:"task2"}}
 - taskIdsByName{standard}= {"task1": 1, "task2": 2}

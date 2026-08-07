@@ -3,12 +3,12 @@
 |---|---|---|---|---|
 | Model | `saveTasks` | Write to `tasks.json` and load new state. | `tasksById: dict[str, Task]` | `tasksById`, `taskIdsByCategory`, `taskIdsByName` |
 | Model | `loadTasks` | Read from `tasks.json` and return `tasksById`. | — | `tasksById`, `taskIdsByCategory`, `taskIdsByName` |
-| Model | `addTask` | Add new task to `tasksById` and `taskIdsByCategory`, then retrieve from `tasksById`. | `newTask: Task` | `newTask: Task` |
+| Model | `insertTask` | Add new task to `tasksById` and `taskIdsByCategory`, then retrieve from `tasksById`. | `newTask: Task` | `newTask: Task` |
 | Model | `updateTask` | Update attributes in `tasksById` to match `newTask`, then return task from `tasksById`. | `updatedTask: Task` | `updatedTask: Task` |
 | Model | `deleteTask` | Remove the task with the given ID from `tasksById`, `taskIdsByCategory`, and `taskIdsByName`. | `taskId: integer` | `successful: boolean` |
-| Model | `retrieveTaskById` | Return the task data for a given id in `tasksById`. | `taskId: integer` | `task: Task` |
-| Model | `retrieveTaskByName` | Retrieve the id associated with the given name from `taskIdsByName`, then call and return `retrieveTaskById`. | `taskName: string` | `task: Task` |
-| Model | `retrieveTasksByCategory` | Retrieve the id associated with the given name from `taskIdsByCategory`, then call and return `retrieveTaskById`. | `category: string` | `task: Task` |
+| Model | `selectTasksByIds` | Return the task data for a given id in `tasksById`. | `taskId: integer` | `task: Task` |
+| Model | `selectTasksByNames` | Retrieve the id associated with the given name from `taskIdsByName`, then call and return `retrieveTaskById`. | `taskName: string` | `task: Task` |
+| Model | `selectTasksByCategories` | Retrieve the id associated with the given name from `taskIdsByCategory`, then call and return `retrieveTaskById`. | `category: string` | `task: Task` |
 | Controllers | `createNewTask` | Ask the user to input task data, validate data inputs, then add and output the new task. | — | — |
 | Controllers | `updateExistingTask` | Ask the user to input task data, validate data inputs, then update and output the task. | — | — |
 | Controllers | `deleteExistingTask` | Ask the user to enter the task `id` or `name`, validate its existence, delete the task from all storage objects, and output confirmation of deletion. | — | — |
@@ -24,7 +24,7 @@
 ## Task
 | name | description | type | constraints | required/optional |
 | --- | --- | --- | --- | --- |
-| id | Persistent unique identifier for each task | integer | | required |
+| id | Persistent unique identifier for each task | string | | required |
 | name | User-friendly summary of task | string | 3 <= len() <= 32 | required |
 | description | Full task details | string | len() <= 255 | optional | 
 | deadline | When the task should be completed by | string | Can be converted to Date("dd/mm/yyyy") | optional |

@@ -12,3 +12,6 @@
 
 # Things to review
 ![alt text](techicalDocsReview.png)
+
+## Documentation and Implementation consistency
+![alt text](documentationImplementationConsistency.png)
