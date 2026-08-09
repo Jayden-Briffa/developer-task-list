@@ -24,6 +24,6 @@
     While I originally wasn't going to write automated tests, I realised that this would be a good oppportunity to learn about testing in python and would likely save time in the long run, while providing documentation of tests performed and how they were performed
     
 07/08/2026
-10:00 - 12:00
+10:00 - 12:00, 14:00 - 15:00
     I used the tests I wrote to identify issues in my code. I found that about half the issues found were with my tests rather than the actual code, which presents a decision of whether to continue with tests. I believe keeping them will ultimately save time as they should work as intended now and will provide constant regression tests
-KSBs: K21, K25, S19, S22
+KSBs: K21, K25, S19, S22'

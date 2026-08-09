@@ -45,13 +45,15 @@ class TasksModel:
 
             if not self._taskIdsByCategory.get(task["category"]):
                 self._taskIdsByCategory[task["category"]] = []
-                
+
             self._taskIdsByCategory[task["category"]].append(rawId)
             self._taskIdsByName[task["name"]] = rawId
 
     def saveTasks(self) -> None:
         toSave = {
-            "tasksById": {taskId: task.__dict__ for taskId, task in self._tasksById.items()},
+            "tasksById": {
+                taskId: task.__dict__ for taskId, task in self._tasksById.items()
+            },
             "lastInsertId": self._lastInsertId,
         }
 

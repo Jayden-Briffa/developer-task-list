@@ -5,6 +5,7 @@ This split is inspired by REST API where data management is a core function. It 
 More code to maintain but offers documentation and speed
 Better organisation of similar or adjacent tests
 Automates regression tests
+Made time feel more restrictive
 
 # Model
 ## Why change the Model method names
@@ -25,3 +26,8 @@ The model is at the heart of the application and must therefore make any errors 
 
 ## Why create and delete categories automatically 
 This better maintains separation of concerns than a separate method as category management isn't necessary outside of specific processes like adding, updating, or deleting tasks. This means it is tightly coupled to the rest of the state
+
+
+# User interface
+## Why transform all inputs
+Making inputs consistently case-insensitive and ignore whitespace reduces user frustration when small, potentially invisble input errors are made. 

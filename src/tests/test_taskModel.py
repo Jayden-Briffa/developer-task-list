@@ -147,5 +147,7 @@ def testDeleteTask(dummyModel, dummyData):
     dummyModel.deleteTask("2")
 
     assert dummyData["2"].id not in dummyModel._tasksById
-    assert dummyData["2"].id not in dummyModel._taskIdsByCategory[dummyData["2"].category]
+    assert (
+        dummyData["2"].id not in dummyModel._taskIdsByCategory[dummyData["2"].category]
+    )
     assert dummyData["2"].name not in dummyModel._taskIdsByName
