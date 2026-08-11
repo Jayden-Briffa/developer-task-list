@@ -67,6 +67,7 @@ class TasksModel:
 
         return {str(taskId): self._tasksById[str(taskId)] for taskId in ids}
 
+    # TODO: Adjust methods to match prototype scope
     def selectTasksByCategories(
         self, categories: list[str] = []
     ) -> dict[str, list[Task]]:

@@ -27,7 +27,23 @@ The model is at the heart of the application and must therefore make any errors 
 ## Why create and delete categories automatically 
 This better maintains separation of concerns than a separate method as category management isn't necessary outside of specific processes like adding, updating, or deleting tasks. This means it is tightly coupled to the rest of the state
 
+## Why note changes as TODOs instead of applying them immidiately
+This ensures that the change is applied before release but prevents unnnecessary task switching which would disrupt flow.
 
 # User interface
 ## Why transform all inputs
 Making inputs consistently case-insensitive and ignore whitespace reduces user frustration when small, potentially invisble input errors are made. 
+
+## Used prompt_toolkit.prompt for inputs
+This provides a lightweight way to extend input functionality to allow placeholder text, improving the UX of updating a task by allowing users to simply alter values rather than typing them out in full
+
+# Validations
+## Validators can return Task or None for success
+This allows us to reuse code and improve flexibility while removing unnecessary repetition of database reads, which could easily bottleneck the system. I considered moving some of the "get task" logic into controllers instead, but this would violate separation of concerns.
+
+# Controllers
+## deleteTask forces a very specific confirmation phrase
+As this is a very destructive action, it is important to give the user multiple chances to back out if they missclicked or changed they mind. 
+
+## getConfirmedTaskCategory is not a validator
+Despite being similar to a validation in that there is a value being confirmed being moving on, this is more about controlling the flow of the program and the user's choice than ensuring the inputs are valid.

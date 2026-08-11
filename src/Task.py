@@ -15,8 +15,4 @@ class Task:
         self.category = category
 
 
-# if __name__ == "__main__":
-#     print({
-#         1: Task(1, "name1", "desc1", "dead1", "cat1").__dict__,
-#         2: Task(2, "name2", "desc2", "dead2", "cat2").__dict__,
-#     }.__dict__)
+# TODO: Add status property

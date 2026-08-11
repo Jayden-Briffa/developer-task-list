@@ -1,4 +1,6 @@
 from Task import Task
+from TasksModel import TasksModel
+from prompt_toolkit import prompt
 
 
 # Remove case sensitivity
@@ -17,8 +19,32 @@ def validateMenuInput(userInput: str, choices: list):
     return False
 
 
-def getUserInput(msg: str):
-    return formatAsUserInput(input(msg))
+def getValidatedUserInput(
+    msg: str, validationFunc: function, model: TasksModel = None, default=""
+) -> str | Task | None:
+    while True:
+
+        userInput = getUserInput(msg)
+        if model:
+            validationResult = validationFunc(userInput, model=model)
+        else:
+            validationResult = validationFunc(userInput)
+
+        if type(validationResult) == str:
+            outputError(validationResult)
+            continue
+
+        if model:
+            return validationResult
+        return userInput
+
+
+def getUserInput(msg: str, format=True, default=""):
+    userInput = prompt(msg, default)
+    if format:
+        return formatAsUserInput(userInput)
+
+    return userInput
 
 
 def getMenuInput(title, choices: list[str]) -> str | None:
@@ -37,6 +63,7 @@ def getMenuInput(title, choices: list[str]) -> str | None:
     return validatedChoice
 
 
+# TODO: Frame as normalisation rather than validation
 def validateMenuInput(userInput: str, choices: list[str]) -> str:
     for i, choice in enumerate(choices):
         if userInput == i or userInput == formatAsUserInput(choice):
