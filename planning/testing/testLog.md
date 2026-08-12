@@ -4,6 +4,8 @@
 | 2 | test_taskModel | Failed | Most tests found a "KeyError: 1" or similar, referring to the id | Treat ids as strings rather than integers |  |
 | 3 | test_taskModel | Failed | testInsertTask found "KeyError: '4'" when reading from self._tasksById. Print debugging found that the new task's id wa incorrectly being set to 1 rather than 4 | Update dummyModel definition to update lastInsertId | ![alt text](img/debuggingTest.png) ![alt text](fixingTest.png)
 | 4 | test_taskModel | Passed | | | | |
+|   | test_controllers | | | | | |
+|   | test_controllers | | | | | |
 
 # Lessons
 | Test # | Lesson |

@@ -6,21 +6,22 @@ import validation
 
 def viewAllTasksByCategory(model: TasksModel):
     tasksByCategory = model.selectTasksByCategories()
-    userInterface.outputTasksByCategory(tasksByCategory)
+    return userInterface.outputTasksByCategory(tasksByCategory)
 
 
 def viewTaskById(model: TasksModel):
     taskById = userInterface.getValidatedUserInput(
         "Enter the task id:", validation.validateExistingTaskId, model=model
     )
-    userInterface.outputTask(taskById)
+    return userInterface.outputTask(taskById)
 
 
 def viewTaskByName(model: TasksModel):
     taskByName = userInterface.getValidatedUserInput(
         "Enter the task name: ", validation.validateExistingTaskName, model=model
     )
-    userInterface.outputTask(taskByName)
+
+    return userInterface.outputTask(taskByName)
 
 
 def getConfirmedTaskCategory(model: TasksModel):
@@ -66,7 +67,7 @@ def createTask(model: TasksModel):
         name=taskName, description=description, deadline=deadline, category=category
     )
 
-    userInterface.outputTask(newTask)
+    return userInterface.outputTask(newTask)
 
 
 def updateTask(model: TasksModel):
@@ -93,7 +94,7 @@ def updateTask(model: TasksModel):
         default=taskById.category,
     )
 
-    model.updateTask(taskById.id, name, description, deadline, category)
+    return model.updateTask(taskById.id, name, description, deadline, category)
 
 
 def deleteTask(model: TasksModel):
@@ -110,4 +111,4 @@ def deleteTask(model: TasksModel):
     if confirmation != "yes":
         return
 
-    model.deleteTask(taskById.id)
+    return model.deleteTask(taskById.id)

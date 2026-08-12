@@ -28,4 +28,4 @@
 | name | User-friendly summary of task | string | 3 <= len() <= 32 | required |
 | description | Full task details | string | len() <= 255 | optional | 
 | deadline | When the task should be completed by | string | Can be converted to Date("dd/mm/yyyy") | optional |
-| category | Which group of tasks is the task in | string | 3 <= len() <= 16 | required |
+| category | Which group of tasks is the task in | string | 3 <= len() <= 16 | optional |

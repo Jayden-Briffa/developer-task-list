@@ -1,6 +1,7 @@
 from Task import Task
 from TasksModel import TasksModel
 from prompt_toolkit import prompt
+from typing import Callable
 
 
 # Remove case sensitivity
@@ -20,7 +21,7 @@ def validateMenuInput(userInput: str, choices: list):
 
 
 def getValidatedUserInput(
-    msg: str, validationFunc: function, model: TasksModel = None, default=""
+    msg: str, validationFunc: Callable, model: TasksModel = None, default=""
 ) -> str | Task | None:
     while True:
 

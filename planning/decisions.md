@@ -1,11 +1,9 @@
 # Why use an MVC split
 This split is inspired by REST API where data management is a core function. It is one here too, so it is useful to totally separate the logic for state management, outputs, inputs, and general logic. This makes it easier to narrow down which function a logical error may belong to at its root. It also separates concerns in development, allowing a single part of the system be focussed on at a time.
 
-# Why switch to automated tests
-More code to maintain but offers documentation and speed
-Better organisation of similar or adjacent tests
-Automates regression tests
-Made time feel more restrictive
+# Why use typehints
+
+# Docstrings used to summarise files
 
 # Model
 ## Why change the Model method names
@@ -47,3 +45,17 @@ As this is a very destructive action, it is important to give the user multiple 
 
 ## getConfirmedTaskCategory is not a validator
 Despite being similar to a validation in that there is a value being confirmed being moving on, this is more about controlling the flow of the program and the user's choice than ensuring the inputs are valid.
+
+
+# Testing
+## Why create the userInputs/expectedTask constructor
+WIP
+Chose to separate construction of userInputs/expectedTask and the execution. This quickly became useful as I needed to change only the latter for the updateTask tests
+
+## Why switch to automated tests
+More code to maintain but offers documentation and speed
+Better organisation of similar or adjacent tests
+Automates regression tests
+Made time feel more restrictive
+
+## Only make controller return != None when testing
