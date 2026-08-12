@@ -9,23 +9,12 @@ def formatAsUserInput(msg: str):
     return msg.strip().lower()
 
 
-def validateMenuInput(userInput: str, choices: list):
-    for i, choice in enumerate(choices):
-        if userInput == str(i):
-            return True
-
-        if userInput == formatAsUserInput(choice):
-            return True
-
-    return False
-
-
 def getValidatedUserInput(
     msg: str, validationFunc: Callable, model: TasksModel = None, default=""
 ) -> str | Task | None:
     while True:
 
-        userInput = getUserInput(msg)
+        userInput = getUserInput(msg, default=default)
         if model:
             validationResult = validationFunc(userInput, model=model)
         else:
@@ -41,11 +30,21 @@ def getValidatedUserInput(
 
 
 def getUserInput(msg: str, format=True, default=""):
-    userInput = prompt(msg, default)
+    userInput = prompt(msg, default=default)
     if format:
         return formatAsUserInput(userInput)
 
     return userInput
+
+
+# TODO: Frame as normalisation rather than validation
+def validateMenuInput(userInput: str, choices: list[str]) -> str:
+    for i, choice in enumerate(choices):
+        castedI = str(i)
+        if userInput == castedI or userInput == formatAsUserInput(choice):
+            return castedI
+
+    return ""
 
 
 def getMenuInput(title, choices: list[str]) -> str | None:
@@ -55,22 +54,12 @@ def getMenuInput(title, choices: list[str]) -> str | None:
     for i, choice in enumerate(choices):
         print(f"{i}. {choice}")
 
-    userChoice = getUserInput(f"Enter your choice (1-{len(choices)} or full phrase):")
+    userChoice = getUserInput(
+        f"Enter your choice (0-{len(choices) - 1} or full phrase):"
+    )
     validatedChoice = validateMenuInput(userChoice, choices)
 
-    if validatedChoice == "":
-        return None
-
     return validatedChoice
-
-
-# TODO: Frame as normalisation rather than validation
-def validateMenuInput(userInput: str, choices: list[str]) -> str:
-    for i, choice in enumerate(choices):
-        if userInput == i or userInput == formatAsUserInput(choice):
-            return i
-
-    return ""
 
 
 def outputTasksByCategory(tasksByCategory: dict[str, Task]):

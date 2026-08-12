@@ -59,3 +59,6 @@ Automates regression tests
 Made time feel more restrictive
 
 ## Only make controller return != None when testing
+
+## Making assertion template functions
+This keeps code DRY but obscures the reason for failed assertions. Needed to manually apply error messages to report expected and actual outcomes on failure

@@ -5,11 +5,15 @@ def assertTaskHasSameValues(actualTask: Task, expectedTask: dict | Task):
     if type(expectedTask) == dict:
         expectedTask = Task(**expectedTask)
 
-    assert actualTask != None
+    assert actualTask is not None, (
+        f"Expected a task object, but actual was None.\n"
+        f"expected={expectedTask!r}\n"
+        f"actual={actualTask!r}"
+    )
     assert vars(actualTask) == vars(expectedTask), (
         f"Task mismatch:\n"
-        f"actual={vars(actualTask)!r}\n"
-        f"expected={vars(expectedTask)!r}"
+        f"expected={vars(expectedTask)!r}\n"
+        f"actual={vars(actualTask)!r}"
     )
 
 
@@ -41,7 +45,8 @@ def constructExpectedTaskAndUserInputs(expectedTaskInputs: dict[str, list[str] |
 
         if val[-1] == "yes":
             expectedTask[key] = val[-2]
-        expectedTask[key] = val[-1]
+        else:
+            expectedTask[key] = val[-1]
 
         for newInput in val:
             userInputs.append(newInput)

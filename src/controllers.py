@@ -24,20 +24,22 @@ def viewTaskByName(model: TasksModel):
     return userInterface.outputTask(taskByName)
 
 
-def getConfirmedTaskCategory(model: TasksModel):
+def getConfirmedTaskCategory(model: TasksModel) -> str:
     while True:
         category = userInterface.getValidatedUserInput(
             "Enter the task category: ", validation.validateTaskCategory
         )
-
-        if category not in model.selectTasksByCategories.keys():
+        if category not in model.selectTasksByCategories().keys():
             confirmation = userInterface.getUserInput(
                 "Only 'yes' will be accepted: ", format=False
             )
-            if confirmation != "yes":
-                continue
+            if confirmation == "yes":
+                break
 
-            return category
+        else:
+            break
+
+    return category
 
 
 def createTask(model: TasksModel):
@@ -51,16 +53,8 @@ def createTask(model: TasksModel):
     deadline = userInterface.getValidatedUserInput(
         "Enter the task deadline (DD/MM/YYYY): ", validation.validateTaskDeadline
     )
-    category = userInterface.getValidatedUserInput(
-        "Enter the task category: ", validation.validateTaskCategory
-    )
 
-    if category not in model.selectTasksByCategories.keys():
-        confirmation = userInterface.getUserInput(
-            "Only 'yes' will be accepted: ", format=False
-        )
-        if confirmation != "yes":
-            return
+    category = getConfirmedTaskCategory(model)
 
     # What if this fails
     newTask = model.insertTask(
@@ -72,7 +66,7 @@ def createTask(model: TasksModel):
 
 def updateTask(model: TasksModel):
     taskById = userInterface.getValidatedUserInput(
-        "Enter the task id:", validation.validateExistingTaskId, model=model
+        "Enter the task id: ", validation.validateExistingTaskId, model=model
     )
 
     name = userInterface.getValidatedUserInput(
@@ -88,13 +82,12 @@ def updateTask(model: TasksModel):
         validation.validateTaskDeadline,
         default=taskById.deadline,
     )
-    category = userInterface.getValidatedUserInput(
-        "Enter the task category: ",
-        validation.validateTaskCategory,
-        default=taskById.category,
-    )
 
-    return model.updateTask(taskById.id, name, description, deadline, category)
+    category = getConfirmedTaskCategory(model)
+
+    result = model.updateTask(taskById.id, name, description, deadline, category)
+    userInterface.outputTask(result)
+    return result
 
 
 def deleteTask(model: TasksModel):
@@ -112,3 +105,8 @@ def deleteTask(model: TasksModel):
         return
 
     return model.deleteTask(taskById.id)
+
+
+def saveTasks(model: TasksModel):
+    print("Saving...")
+    model.saveTasks()

@@ -76,7 +76,7 @@ class TasksModel:
             # Does not use self._taskIdsByCategory as it provides no speed benefit when iterating over all tasks
             categorised = dict()
             for _, task in self._tasksById.items():
-                if not categorised[task.category]:
+                if not categorised.get(task.category):
                     categorised[task.category] = []
 
                 categorised[task.category].append(task)
@@ -141,6 +141,8 @@ class TasksModel:
         # Clean up now-empty category
         if len(self._taskIdsByCategory[oldTask.category]) == 0:
             del self._taskIdsByCategory[oldTask.category]
+
+        return self._tasksById[taskId]
 
     # Delete
     def deleteTask(self, id: str):

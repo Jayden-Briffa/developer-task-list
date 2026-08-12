@@ -1,6 +1,7 @@
-from userInterface import getMenuInput, outputError
+import userInterface
 import controllers
 from TasksModel import TasksModel
+from Task import Task
 
 menuChoices = [
     "View all tasks, sorted by category",  # 1
@@ -13,35 +14,77 @@ menuChoices = [
 ]
 
 tasksModel = TasksModel("taskData.json")
+tasksModel._tasksById = {
+    "1": Task(
+        id="1",
+        name="task1",
+        description="mydescription1",
+        deadline="30/12/2026",
+        category="category1",
+    ),
+    "2": Task(
+        id="2",
+        name="task2",
+        description="mydescription2",
+        deadline="30/11/2026",
+        category="category2",
+    ),
+    "3": Task(
+        id="3",
+        name="task3",
+        description="mydescription3",
+        deadline="30/11/2026",
+        category="category2",
+    ),
+}
+tasksModel._taskIdsByCategory = {
+    "category1": ["1"],
+    "category2": ["2", "3"],
+}
+tasksModel._taskIdsByName = {
+    "task1": "1",
+    "task2": "2",
+    "task3": "3",
+}
+tasksModel._lastInsertId = 3
 
 while True:
-    userChoice = getMenuInput("Home", menuChoices)
+    userChoice = userInterface.getMenuInput("Home", menuChoices)
 
     match userChoice:
 
+        case "0":
+            controllers.viewAllTasksByCategory(tasksModel)
+
         case "1":
-            controllers.viewAllTasksByCategory()
+            controllers.viewTaskById(tasksModel)
 
         case "2":
-            controllers.viewTaskById()
+            controllers.viewTaskByName(tasksModel)
 
         case "3":
-            controllers.viewTaskByName()
+            controllers.createTask(tasksModel)
 
         case "4":
-            controllers.createTask()
+            controllers.updateTask(tasksModel)
 
         case "5":
-            controllers.updateTask()
+            controllers.deleteTask(tasksModel)
 
         case "6":
-            controllers.deleteTask()
-
-        case "7":
             print("Exiting program...")
             exit()
 
         case _:
-            outputError(
+            userInterface.outputError(
                 f"Invalid menu input. You must enter numbers (1-{len(menuChoices)}) or the full phrase"
             )
+
+    controllers.saveTasks(tasksModel)
+
+# TODO: handle model errors, e.g., id not found
+# TODO: Preserve input case for task name etc. but validate against case-insensitive duplicates
+# TODO: Handle duplicate task names
+# TODO: Show present categories when altering a task's category
+# TODO: Allow the user to abort a menu choice by entering a special phrase at any input, e.g., "abort"
+# TODO: Include category in task output

@@ -26,4 +26,14 @@
 07/08/2026
 10:00 - 12:00, 14:00 - 15:00
     I used the tests I wrote to identify issues in my code. I found that about half the issues found were with my tests rather than the actual code, which presents a decision of whether to continue with tests. I believe keeping them will ultimately save time as they should work as intended now and will provide constant regression tests
-KSBs: K21, K25, S19, S22'
+
+11/08/2026
+14:00 - 17:00
+    Focussed on writing tests
+
+12/08/2026
+9:00 - 12:00, 16:00
+    Continued writing tests
+
+
+KSBs: K21, K25, S19, S22
