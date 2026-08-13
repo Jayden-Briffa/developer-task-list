@@ -1,11 +1,11 @@
 # Outputs
 ## Menu output
 ```
-=== Menu title ===
+===== Menu title =====
 1. Option 1
 2. Option 2
 
-Enter your choice:
+Enter your choice: 
 ```
 
 ## Tasks by category
@@ -23,6 +23,8 @@ Enter your choice:
 ## Task
 ```
 --- Task 1 ---
+- Category: category
+- Status: Not started
 Full description 
 [ Deadline: <dd/mm/yyyy> ]
 ```

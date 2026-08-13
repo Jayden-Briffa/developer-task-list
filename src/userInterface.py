@@ -77,9 +77,9 @@ def getMenuInput(title, choices: list[str], defaultInput="") -> str | None:
         format=True,
         default=defaultInput,
     )
-    validatedChoice = normaliseMenuInput(userChoice, choices)
+    normalisedChoice = normaliseMenuInput(userChoice, choices)
 
-    return validatedChoice
+    return normalisedChoice
 
 
 def getMenuChoiceInput(title, choices: list[str], defaultChoice="") -> str:
@@ -91,9 +91,9 @@ def getMenuChoiceInput(title, choices: list[str], defaultChoice="") -> str:
                 break
 
     while True:
-        selectedIndex = getMenuInput(title, choices, defaultInput=defaultInput)
-        if selectedIndex != "":
-            return choices[int(selectedIndex)]
+        normalisedIndex = getMenuInput(title, choices, defaultInput=defaultInput)
+        if normalisedIndex != "":
+            return choices[int(normalisedIndex)]
 
         if defaultChoice != "":
             return defaultChoice
@@ -106,6 +106,11 @@ def getMenuChoiceInput(title, choices: list[str], defaultChoice="") -> str:
 def outputTasksByCategory(tasksByCategory: dict[str, Task]):
 
     print()
+
+    if not tasksByCategory:
+        print("No tasks to display.")
+        pressEnterToContinue()
+        return
 
     bannerBuffer = "-" * 3
     lBuffer = ". "
@@ -144,3 +149,63 @@ def outputError(msg: str):
     print(bannerBuffer, "ERROR:", msg, bannerBuffer)
 
     pressEnterToContinue()
+
+
+# Input collection functions for task attributes
+TASK_STATUS_OPTIONS = [
+    "Not started",
+    "In progress",
+    "Blocked",
+    "Testing",
+    "Completed",
+]
+
+
+def getConfirmedTaskCategory(model, default: str = "") -> str:
+    from validation import validateTaskCategory
+
+    while True:
+        existingCategories = list(model.selectTasksByCategories().keys())
+        print("Available categories:")
+        if len(existingCategories) == 0:
+            buffer = "-" * 3
+            print(f"\n{buffer} No existing categories. {buffer}")
+        else:
+            for existingCategory in existingCategories:
+                categoryLabel = (
+                    existingCategory if existingCategory != "" else "<no output>"
+                )
+                print(f"- {categoryLabel}")
+
+        print("Or enter a new category to create it.")
+
+        category = getValidatedUserInput(
+            "Enter the task category: ",
+            validateTaskCategory,
+            default=default,
+        )
+        existingCategory = any(
+            storedCategory.lower() == category.lower()
+            for storedCategory in model.selectTasksByCategories().keys()
+        )
+        if not existingCategory:
+            print()
+            print(
+                f"This will create a new category. Are you sure you want to use the category '{category}'?"
+            )
+            confirmation = getUserInput("Only 'yes' will be accepted: ", format=False)
+            if confirmation.lower() == "yes":
+                break
+
+        else:
+            break
+
+    return category
+
+
+def getTaskStatusChoice(default: str = "Not started") -> str:
+    return getMenuChoiceInput(
+        "Select task status",
+        TASK_STATUS_OPTIONS,
+        defaultChoice=default,
+    )

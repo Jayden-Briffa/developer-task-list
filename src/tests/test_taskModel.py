@@ -82,7 +82,6 @@ def testInsertTask(dummyModel):
         "category": "category2",
         "status": "Testing",
     }
-    print(f"{taskToInsert}")
     dummyModel.insertTask(**taskToInsert)
 
     taskToInsert["id"] = "4"

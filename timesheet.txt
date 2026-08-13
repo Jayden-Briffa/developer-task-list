@@ -35,5 +35,9 @@
 9:00 - 12:00, 16:00
     Continued writing tests
 
+13/08/2026
+9:00 - 12:00 
+    Executed tests and improved program based on them
+
 
 KSBs: K21, K25, S19, S22

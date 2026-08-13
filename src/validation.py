@@ -16,6 +16,7 @@ def isPositiveInteger(userInput: str) -> bool:
         return False
 
 
+# Expect the task id to exist in model
 def validateExistingTaskId(userInput: str, model: TasksModel) -> str | Task:
     if not isPositiveInteger(userInput):
         return "Task id must be a positive integer"
@@ -27,34 +28,37 @@ def validateExistingTaskId(userInput: str, model: TasksModel) -> str | Task:
     return taskById
 
 
+# Validate task name format and existence
+# requireNew=True: name must be new (for create/update operations)
+# requireNew=False: name must exist (for view/lookup operations)
 def validateTaskName(
     userInput: str,
     model: TasksModel | None = None,
     currentTaskId: str | None = None,
-) -> str | None:
+    requireNew: bool = True,
+) -> str | Task | None:
+    # Format validation (always performed)
     if userInput == "":
         return "Task name cannot be empty"
     elif len(userInput) < 3 or len(userInput) > 32:
         return "Task name length must be between 3 and 32 characters long (inclusive)"
 
-    if model is not None:
-        existingTask = next(iter(model.selectTasksByNames([userInput]).values()), None)
+    # If no model provided, only format validation can be done
+    if model is None:
+        return None
+
+    existingTask = next(iter(model.selectTasksByNames([userInput]).values()), None)
+
+    if requireNew:
+        # For creation/update: name must be new (unless it's the current task being updated)
         if existingTask and existingTask.id != str(currentTaskId):
             return "Task name already exists"
-
-    return None
-
-
-def validateExistingTaskName(userInput: str, model: TasksModel) -> str | None:
-    errMsg = validateTaskName(userInput)
-    if errMsg:
-        return errMsg
-
-    taskByName = next(iter(model.selectTasksByNames([userInput]).values()), None)
-    if not taskByName:
-        return f"Given task name: {userInput} does not exist"
-
-    return taskByName
+        return None
+    else:
+        # For viewing/lookup: name must exist
+        if not existingTask:
+            return f"Given task name: {userInput} does not exist"
+        return existingTask
 
 
 def validateTaskDescription(userInput: str) -> str | None:
