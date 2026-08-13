@@ -80,6 +80,7 @@ def testInsertTask(dummyModel):
         "description": "mydescription4",
         "deadline": "30/11/2026",
         "category": "category2",
+        "status": "Testing",
     }
     print(f"{taskToInsert}")
     dummyModel.insertTask(**taskToInsert)
@@ -126,6 +127,7 @@ def testUpdateTask(dummyModel):
         "description": "myNewDescription",
         "deadline": "30/10/2026",
         "category": "category1",
+        "status": "Completed",
     }
     dummyModel.updateTask("2", **updatedTaskData)
 

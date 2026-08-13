@@ -15,6 +15,7 @@ def dummyData():
             description="mydescription1",
             deadline="30/12/2026",
             category="category1",
+            status="Not started",
         ),
         "2": Task(
             id="2",
@@ -22,6 +23,7 @@ def dummyData():
             description="mydescription2",
             deadline="30/11/2026",
             category="category2",
+            status="In progress",
         ),
         "3": Task(
             id="3",
@@ -29,6 +31,7 @@ def dummyData():
             description="mydescription3",
             deadline="30/11/2026",
             category="category2",
+            status="Blocked",
         ),
     }
 

@@ -26,12 +26,27 @@ def viewTaskByName(model: TasksModel):
 
 def getConfirmedTaskCategory(model: TasksModel, default: str = "") -> str:
     while True:
+        existingCategories = list(model.selectTasksByCategories().keys())
+        print("Available categories:")
+        if len(existingCategories) == 0:
+            print("- <none>")
+        else:
+            for existingCategory in existingCategories:
+                categoryLabel = existingCategory if existingCategory != "" else "<no output>"
+                print(f"- {categoryLabel}")
+
+        print("Or enter a new category to create it.")
+
         category = userInterface.getValidatedUserInput(
             "Enter the task category: ",
             validation.validateTaskCategory,
             default=default,
         )
-        if category not in model.selectTasksByCategories().keys():
+        existingCategory = any(
+            storedCategory.lower() == category.lower()
+            for storedCategory in model.selectTasksByCategories().keys()
+        )
+        if not existingCategory:
             print()
             print(
                 f"This will create a new category. Are you sure you want to use the category '{category}'?"
@@ -39,7 +54,7 @@ def getConfirmedTaskCategory(model: TasksModel, default: str = "") -> str:
             confirmation = userInterface.getUserInput(
                 "Only 'yes' will be accepted: ", format=False
             )
-            if confirmation == "yes":
+            if confirmation.lower() == "yes":
                 break
 
         else:
@@ -48,9 +63,26 @@ def getConfirmedTaskCategory(model: TasksModel, default: str = "") -> str:
     return category
 
 
+TASK_STATUS_OPTIONS = [
+    "Not started",
+    "In progress",
+    "Blocked",
+    "Testing",
+    "Completed",
+]
+
+
+def getTaskStatusChoice(default: str = "Not started") -> str:
+    return userInterface.getMenuChoiceInput(
+        "Select task status",
+        TASK_STATUS_OPTIONS,
+        defaultChoice=default,
+    )
+
+
 def createTask(model: TasksModel):
     taskName = userInterface.getValidatedUserInput(
-        "Enter the task name: ", validation.validateTaskName
+        "Enter the task name: ", validation.validateTaskName, model=model
     )
     # What if the user missinputted on the main menu and doesn't want to enter all fields?
     description = userInterface.getValidatedUserInput(
@@ -61,12 +93,18 @@ def createTask(model: TasksModel):
     )
 
     category = getConfirmedTaskCategory(model)
+    status = getTaskStatusChoice()
 
     # What if this fails
     newTask = model.insertTask(
-        name=taskName, description=description, deadline=deadline, category=category
+        name=taskName,
+        description=description,
+        deadline=deadline,
+        category=category,
+        status=status,
     )
 
+    print("Task created")
     return userInterface.outputTask(newTask)
 
 
@@ -76,7 +114,12 @@ def updateTask(model: TasksModel):
     )
 
     name = userInterface.getValidatedUserInput(
-        "Enter the task name: ", validation.validateTaskName, default=taskById.name
+        "Enter the task name: ",
+        lambda userInput, model: validation.validateTaskName(
+            userInput, model=model, currentTaskId=taskById.id
+        ),
+        model=model,
+        default=taskById.name,
     )
     description = userInterface.getValidatedUserInput(
         "Enter the task description: ",
@@ -90,8 +133,12 @@ def updateTask(model: TasksModel):
     )
 
     category = getConfirmedTaskCategory(model, default=taskById.category)
+    status = getTaskStatusChoice(default=taskById.status)
 
-    result = model.updateTask(taskById.id, name, description, deadline, category)
+    result = model.updateTask(
+        taskById.id, name, description, deadline, category, status
+    )
+    print("Task updated")
     userInterface.outputTask(result)
     return result
 
@@ -108,10 +155,12 @@ def deleteTask(model: TasksModel):
         "Only 'yes' will be accepted: ", format=False
     )
 
-    if confirmation != "yes":
+    if confirmation.lower() != "yes":
         return
 
-    return model.deleteTask(taskById.id)
+    result = model.deleteTask(taskById.id)
+    print("Task deleted")
+    return result
 
 
 def saveTasks(model: TasksModel):

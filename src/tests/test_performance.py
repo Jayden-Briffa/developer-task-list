@@ -21,6 +21,7 @@ def buildLargeTaskDataset():
             description=f"description{index}",
             deadline="30/11/2026",
             category=category,
+            status="Not started",
         )
 
         tasksById[taskId] = task
@@ -113,6 +114,7 @@ def testInsertTaskLargeDatasetUnderHalfSecond(largeDatasetDummyModel):
             description="description1001",
             deadline="30/11/2026",
             category="category0",
+            status="In progress",
         ),
         beforeEach=lambda: resetLargeDatasetModel(model),
     )
@@ -128,6 +130,7 @@ def testUpdateTaskLargeDatasetUnderHalfSecond(largeDatasetDummyModel):
             description="updatedDescription500",
             deadline="31/12/2026",
             category="category7",
+            status="Completed",
         ),
         beforeEach=lambda: resetLargeDatasetModel(model),
     )

@@ -20,7 +20,11 @@ def assertTaskHasSameValues(actualTask: Task, expectedTask: dict | Task):
 def mockGetUserInputFactory(answers):
     # Make the mock getUserInput compatible with original function parameters, but it doesn't need to use them
     def mockGetUserInput(prompt="", default="", format=True):
-        return next(answers)
+        answer = next(answers)
+        if format:
+            return answer.strip().lower()
+
+        return answer
 
     return mockGetUserInput
 
@@ -41,6 +45,26 @@ def mockOutputError(msg: str):
 # Values in expectedTaskInputs which are strings instead of lists are added to expectedNewTask, but not userInputs
 # Where confirmation is required for an action (ie, the answer is "yes"), the second to-last value in the list is added to expectedNewTask
 def constructExpectedTaskAndUserInputs(expectedTaskInputs: dict[str, list[str] | str]):
+    statusChoices = [
+        "Not started",
+        "In progress",
+        "Blocked",
+        "Testing",
+        "Completed",
+    ]
+
+    def resolveStatusInput(rawStatusInput: str) -> str:
+        if rawStatusInput.isdigit():
+            statusIndex = int(rawStatusInput)
+            if 0 <= statusIndex < len(statusChoices):
+                return statusChoices[statusIndex]
+
+        for statusChoice in statusChoices:
+            if rawStatusInput.strip().lower() == statusChoice.lower():
+                return statusChoice
+
+        return rawStatusInput
+
     expectedTask = {}
     userInputs = []
     for key, val in expectedTaskInputs.items():
@@ -51,6 +75,9 @@ def constructExpectedTaskAndUserInputs(expectedTaskInputs: dict[str, list[str] |
             expectedTask[key] = val[-2]
         else:
             expectedTask[key] = val[-1]
+
+        if key == "status":
+            expectedTask[key] = resolveStatusInput(expectedTask[key])
 
         for newInput in val:
             userInputs.append(newInput)

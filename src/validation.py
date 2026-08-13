@@ -27,11 +27,20 @@ def validateExistingTaskId(userInput: str, model: TasksModel) -> str | Task:
     return taskById
 
 
-def validateTaskName(userInput: str) -> str | None:
+def validateTaskName(
+    userInput: str,
+    model: TasksModel | None = None,
+    currentTaskId: str | None = None,
+) -> str | None:
     if userInput == "":
         return "Task name cannot be empty"
     elif len(userInput) < 3 or len(userInput) > 32:
         return "Task name length must be between 3 and 32 characters long (inclusive)"
+
+    if model is not None:
+        existingTask = next(iter(model.selectTasksByNames([userInput]).values()), None)
+        if existingTask and existingTask.id != str(currentTaskId):
+            return "Task name already exists"
 
     return None
 
@@ -41,7 +50,7 @@ def validateExistingTaskName(userInput: str, model: TasksModel) -> str | None:
     if errMsg:
         return errMsg
 
-    taskByName = model.selectTasksByNames([userInput]).get(userInput)
+    taskByName = next(iter(model.selectTasksByNames([userInput]).values()), None)
     if not taskByName:
         return f"Given task name: {userInput} does not exist"
 

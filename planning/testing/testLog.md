@@ -52,9 +52,8 @@
 | 29 | Update task | Category always seems to show as empty despite not being empty | Add default param to getConfirmedTaskCategory | | |
 | 29a | Update task | Category always seems to show as empty despite not being empty | Passed | | |
 | 30 | Quit | Exits program | Passed | | |
+| 31 | Abort operation | Inputting "abort" at any input sends the user back to the main menu | Passed | | |
 
-
-Noticed a lack of confirmation messages after CRUD operations which harmed UX as the user was unsure of what exactly did or didn't happen
 # Lessons
 | Test # | Lesson |
 | --- | --- |

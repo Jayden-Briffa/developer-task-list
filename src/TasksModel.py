@@ -41,6 +41,7 @@ class TasksModel:
                 description=task["description"],
                 deadline=task["deadline"],
                 category=task["category"],
+                status=task["status"],
             )
 
             if not self._taskIdsByCategory.get(task["category"]):
@@ -67,7 +68,6 @@ class TasksModel:
 
         return {str(taskId): self._tasksById.get(str(taskId)) for taskId in ids}
 
-    # TODO: Adjust methods to match prototype scope
     def selectTasksByCategories(
         self, categories: list[str] = []
     ) -> dict[str, list[Task]]:
@@ -86,8 +86,12 @@ class TasksModel:
         foundTasks = {}
         for category in categories:
             foundTasks[category] = []
-            for taskId in self._taskIdsByCategory.get(category, []):
-                foundTasks[category].append(self._tasksById[taskId])
+            targetCategory = category.lower()
+            for storedCategory, taskIds in self._taskIdsByCategory.items():
+                if storedCategory.lower() == targetCategory:
+                    for taskId in taskIds:
+                        foundTasks[category].append(self._tasksById[taskId])
+                    break
 
         return foundTasks
 
@@ -100,13 +104,26 @@ class TasksModel:
             return foundTasks
 
         for name in names:
-            taskId = self._taskIdsByName.get(name)
+            taskId = None
+            targetName = name.lower()
+            for storedName, existingTaskId in self._taskIdsByName.items():
+                if storedName.lower() == targetName:
+                    taskId = existingTaskId
+                    break
+
             foundTasks[name] = self._tasksById.get(taskId)
 
         return foundTasks
 
     # Create
-    def insertTask(self, name: str, description: str, deadline: str, category: str):
+    def insertTask(
+        self,
+        name: str,
+        description: str,
+        deadline: str,
+        category: str,
+        status: str,
+    ):
         self._lastInsertId += 1
         taskId = str(self._lastInsertId)
         print("New task id: ", taskId)
@@ -116,6 +133,7 @@ class TasksModel:
             description=description,
             deadline=deadline,
             category=category,
+            status=status,
         )
 
         self._taskIdsByCategory.setdefault(category, []).append(taskId)
@@ -125,7 +143,13 @@ class TasksModel:
 
     # Update
     def updateTask(
-        self, id: str, name: str, description: str, deadline: str, category: str
+        self,
+        id: str,
+        name: str,
+        description: str,
+        deadline: str,
+        category: str,
+        status: str,
     ):
         taskId = str(id)
         oldTask = self._tasksById[taskId]
@@ -144,6 +168,7 @@ class TasksModel:
             description=description,
             deadline=deadline,
             category=category,
+            status=status,
         )
 
         # Clean up now-empty category
@@ -163,7 +188,3 @@ class TasksModel:
 
         if len(self._taskIdsByCategory[task.category]) == 0:
             del self._taskIdsByCategory[task.category]
-
-
-# TODO: Test that file is created at init if not exists
-# TODO: Validate filePath before initing

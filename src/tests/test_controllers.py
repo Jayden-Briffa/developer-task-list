@@ -53,15 +53,15 @@ def testViewTaskById(monkeypatch, dummyModel):
 
 
 def testViewTaskByName(monkeypatch, dummyModel):
-    userInputs = ["task1"]
+    userInputs = ["TaSk1"]
     monkeypatch.setattr(
         userInterface, "getUserInput", helpers.mockGetUserInputFactory(iter(userInputs))
     )
     monkeypatch.setattr(userInterface, "outputTask", helpers.mockOutputTask)
 
-    expectedTaskToOutput = dummyModel._tasksById[
-        dummyModel._taskIdsByName[userInputs[0]]
-    ]
+    expectedTaskToOutput = next(
+        iter(dummyModel.selectTasksByNames([userInputs[0]]).values())
+    )
 
     result = controllers.viewTaskByName(dummyModel)
 
@@ -87,10 +87,11 @@ def executeCreateTaskTestCase(
 def testCreateTaskNormal(monkeypatch, dummyModel):
     expectedNewTaskInputs = {
         "id": "4",
-        "name": ["task4"],
-        "description": ["description4"],
+        "name": ["Task4"],
+        "description": ["Description4"],
         "deadline": ["01/01/2026"],
-        "category": ["category1"],
+        "category": ["Category1"],
+        "status": ["3"],
     }
     expectedTask, userInputs = helpers.constructExpectedTaskAndUserInputs(
         expectedNewTaskInputs
@@ -102,10 +103,11 @@ def testCreateTaskNormal(monkeypatch, dummyModel):
 def testCreateTaskExtremeLower(monkeypatch, dummyModel):
     expectedNewTaskInputs = {
         "id": "4",
-        "name": ["a" * 3],
+        "name": ["AaA"],
         "description": [""],
         "deadline": [""],
-        "category": ["a" * 3, "yes"],
+        "category": ["AaA", "yes"],
+        "status": ["0"],
     }
     expectedTask, userInputs = helpers.constructExpectedTaskAndUserInputs(
         expectedNewTaskInputs
@@ -117,10 +119,11 @@ def testCreateTaskExtremeLower(monkeypatch, dummyModel):
 def testCreateTaskExtremeUpper(monkeypatch, dummyModel):
     expectedNewTaskInputs = {
         "id": "4",
-        "name": ["a" * 32],
-        "description": ["a" * 255],
+        "name": ["A" * 32],
+        "description": ["A" * 255],
         "deadline": ["01/01/2026"],
-        "category": ["category1"],
+        "category": ["Category1"],
+        "status": ["Completed"],
     }
     expectedTask, userInputs = helpers.constructExpectedTaskAndUserInputs(
         expectedNewTaskInputs
@@ -132,10 +135,11 @@ def testCreateTaskExtremeUpper(monkeypatch, dummyModel):
 def testCreateTaskMinimumFields(monkeypatch, dummyModel):
     expectedNewTaskInputs = {
         "id": "4",
-        "name": ["a" * 10],
+        "name": ["TaskNameAa"],
         "description": [""],
         "deadline": [""],
         "category": ["", "yes"],
+        "status": ["2"],
     }
     expectedTask, userInputs = helpers.constructExpectedTaskAndUserInputs(
         expectedNewTaskInputs
@@ -147,10 +151,11 @@ def testCreateTaskMinimumFields(monkeypatch, dummyModel):
 def testCreateTaskExtremeLowerInvalid(monkeypatch, dummyModel):
     expectedNewTaskInputs = {
         "id": "4",
-        "name": ["a" * 2, "a" * 5],
+        "name": ["Aa", "AaAaA"],
         "description": [""],
         "deadline": [""],
-        "category": ["a" * 2, "a" * 5, "yes"],
+        "category": ["Aa", "AaAaA", "yes"],
+        "status": ["4"],
     }
     expectedTask, userInputs = helpers.constructExpectedTaskAndUserInputs(
         expectedNewTaskInputs
@@ -162,10 +167,27 @@ def testCreateTaskExtremeLowerInvalid(monkeypatch, dummyModel):
 def testCreateTaskExtremeUpperInvalid(monkeypatch, dummyModel):
     expectedNewTaskInputs = {
         "id": "4",
-        "name": ["a" * 33, "a" * 32],
-        "description": ["a" * 256, "a" * 255],
+        "name": ["A" * 33, "A" * 32],
+        "description": ["A" * 256, "A" * 255],
         "deadline": ["01/01/2026"],
-        "category": ["a" * 2, "a" * 5, "yes"],
+        "category": ["Aa", "AaAaA", "yes"],
+        "status": ["1"],
+    }
+    expectedTask, userInputs = helpers.constructExpectedTaskAndUserInputs(
+        expectedNewTaskInputs
+    )
+
+    executeCreateTaskTestCase(monkeypatch, dummyModel, expectedTask, userInputs)
+
+
+def testCreateTaskDuplicateName(monkeypatch, dummyModel):
+    expectedNewTaskInputs = {
+        "id": "4",
+        "name": ["Task1", "Task4"],
+        "description": ["Description4"],
+        "deadline": ["01/01/2026"],
+        "category": ["Category1"],
+        "status": ["3"],
     }
     expectedTask, userInputs = helpers.constructExpectedTaskAndUserInputs(
         expectedNewTaskInputs
@@ -177,10 +199,11 @@ def testCreateTaskExtremeUpperInvalid(monkeypatch, dummyModel):
 def testCreateTaskDontConfirmCategory(monkeypatch, dummyModel):
     expectedNewTaskInputs = {
         "id": "4",
-        "name": ["a" * 5],
+        "name": ["AaAaA"],
         "description": [""],
         "deadline": [""],
-        "category": ["a" * 5, "no", "a" * 6, "yes"],
+        "category": ["AaAaA", "no", "AaAaAa", "yes"],
+        "status": ["In progress"],
     }
     expectedTask, userInputs = helpers.constructExpectedTaskAndUserInputs(
         expectedNewTaskInputs
@@ -208,10 +231,11 @@ def executeUpdateTaskTestCase(
 def testUpdateTaskNormal(monkeypatch, dummyModel):
     expectedNewTaskInputs = {
         "id": ["3"],
-        "name": ["task3"],
-        "description": ["description3"],
+        "name": ["Task3"],
+        "description": ["Description3"],
         "deadline": ["01/01/2026"],
-        "category": ["category1"],
+        "category": ["Category1"],
+        "status": ["3"],
     }
     expectedTask, userInputs = helpers.constructExpectedTaskAndUserInputs(
         expectedNewTaskInputs
@@ -223,10 +247,11 @@ def testUpdateTaskNormal(monkeypatch, dummyModel):
 def testUpdateTaskExtremeLower(monkeypatch, dummyModel):
     expectedNewTaskInputs = {
         "id": ["3"],
-        "name": ["a" * 3],
+        "name": ["AaA"],
         "description": [""],
         "deadline": [""],
-        "category": ["a" * 3, "yes"],
+        "category": ["AaA", "yes"],
+        "status": ["0"],
     }
     expectedTask, userInputs = helpers.constructExpectedTaskAndUserInputs(
         expectedNewTaskInputs
@@ -238,10 +263,11 @@ def testUpdateTaskExtremeLower(monkeypatch, dummyModel):
 def testUpdateTaskExtremeUpper(monkeypatch, dummyModel):
     expectedNewTaskInputs = {
         "id": ["3"],
-        "name": ["a" * 32],
-        "description": ["a" * 255],
+        "name": ["A" * 32],
+        "description": ["A" * 255],
         "deadline": ["01/01/2026"],
-        "category": ["category1"],
+        "category": ["Category1"],
+        "status": ["Completed"],
     }
     expectedTask, userInputs = helpers.constructExpectedTaskAndUserInputs(
         expectedNewTaskInputs
@@ -253,10 +279,11 @@ def testUpdateTaskExtremeUpper(monkeypatch, dummyModel):
 def testUpdateTaskMinimumFields(monkeypatch, dummyModel):
     expectedNewTaskInputs = {
         "id": ["3"],
-        "name": ["a" * 10],
+        "name": ["TaskNameAa"],
         "description": [""],
         "deadline": [""],
         "category": ["", "yes"],
+        "status": ["2"],
     }
     expectedTask, userInputs = helpers.constructExpectedTaskAndUserInputs(
         expectedNewTaskInputs
@@ -268,10 +295,11 @@ def testUpdateTaskMinimumFields(monkeypatch, dummyModel):
 def testUpdateTaskExtremeLowerInvalid(monkeypatch, dummyModel):
     expectedNewTaskInputs = {
         "id": ["3"],
-        "name": ["a" * 2, "a" * 5],
+        "name": ["Aa", "AaAaA"],
         "description": [""],
         "deadline": [""],
-        "category": ["a" * 2, "a" * 5, "yes"],
+        "category": ["Aa", "AaAaA", "yes"],
+        "status": ["4"],
     }
     expectedTask, userInputs = helpers.constructExpectedTaskAndUserInputs(
         expectedNewTaskInputs
@@ -283,10 +311,11 @@ def testUpdateTaskExtremeLowerInvalid(monkeypatch, dummyModel):
 def testUpdateTaskExtremeUpperInvalid(monkeypatch, dummyModel):
     expectedNewTaskInputs = {
         "id": ["3"],
-        "name": ["a" * 33, "a" * 32],
-        "description": ["a" * 256, "a" * 255],
+        "name": ["A" * 33, "A" * 32],
+        "description": ["A" * 256, "A" * 255],
         "deadline": ["01/01/2026"],
-        "category": ["a" * 2, "a" * 5, "yes"],
+        "category": ["Aa", "AaAaA", "yes"],
+        "status": ["1"],
     }
     expectedTask, userInputs = helpers.constructExpectedTaskAndUserInputs(
         expectedNewTaskInputs
@@ -298,10 +327,11 @@ def testUpdateTaskExtremeUpperInvalid(monkeypatch, dummyModel):
 def testUpdateTaskDontConfirmCategory(monkeypatch, dummyModel):
     expectedNewTaskInputs = {
         "id": ["3"],
-        "name": ["a" * 5],
+        "name": ["AaAaA"],
         "description": [""],
         "deadline": [""],
-        "category": ["a" * 5, "no", "a" * 6, "yes"],
+        "category": ["AaAaA", "no", "AaAaAa", "yes"],
+        "status": ["In progress"],
     }
     expectedTask, userInputs = helpers.constructExpectedTaskAndUserInputs(
         expectedNewTaskInputs
