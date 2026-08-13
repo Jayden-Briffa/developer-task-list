@@ -24,6 +24,8 @@
 | 14m3 | Create task (dont confirm category) | Passed | The user is, as expected, asked to repeat their input when not confirming and existing categories no longer loop forever | | |
 | 15 | test_controllers | Failed (18 passed) | Update task with lower extreme inputs prematurely exhausts its inputs. As this only started failing after the last change, it is likely due to the new category selection logic. As controllers.updateTask did not previously confirm category selections at all, indicating that the test may not have a confirmation input. This was correct | Add "yes" as the final category input in testUpdateTaskExtremeLower | |
 | 16 | test_controllers | Passed | | | |
+| 17 | test_performance | Passed | All key actions executed on average under 0.5s | Stress test to find a bottleneck | |
+| 18 | test_performance | Forced to fail | Stress-tested performance by gradually adding tasks. First failure was between 70k-80k tasks and was only failed by saveTasks. This is a totally unrealistic number of tasks for a single developer, but could highlight a potential future bottleneck | | | 
 
 # Lessons
 | Test # | Lesson |
