@@ -1,3 +1,4 @@
+# Automated tests
 | Test # | Suite name | Status | Investigation & issue found | Actions | Evidence |
 | --- | --- | --- | --- | --- | --- |
 | 1 | testModel | Failed | All tests found an AttributeError: 'dict' object has no attribute 'tasksById'. This indicates that something is going wrong in the model's initialisation. Noticed that this would apply to saving too, so the Task's __dict__ attribute is called when dumping to json | Added dict -> Task translation to loadTasks | ![alt text](img/dictTaskTranslation.png) |
@@ -27,6 +28,33 @@
 | 17 | test_performance | Passed | All key actions executed on average under 0.5s | Stress test to find a bottleneck | |
 | 18 | test_performance | Forced to fail | Stress-tested performance by gradually adding tasks. First failure was between 70k-80k tasks and was only failed by saveTasks. This is a totally unrealistic number of tasks for a single developer, but could highlight a potential future bottleneck | | | 
 
+# Manual UI tests
+| Test # | Core function | Expected result | Actual result | Actions | Evidence |
+| --- | --- | --- | --- | --- | --- |
+| 19 | Main menu | Main menu is outputted clearly and accepts inputs of numbers and case-insensitive full phrases | Passed | |
+| 20 | View all tasks | All currently-stored tasks are outputted clearly with truncated fields shown | Tasks are outputted, but the output is lost among the quickly-moving text. | Add padding to outputs and ask the user to press enter to continue | |
+| 20a | View all tasks | All currently-stored tasks are outputted clearly with truncated fields shown | Passed | | |
+| 21 | View task by id | All task fields are outputted untruncated, clearly | All fields other than category are shown | Add category "subheading" area to task output | |
+| 21a | View task by id | All task fields are outputted untruncated, clearly | Passed | | | 
+| 22 | View task by id (nonexistent id) | User is informed that the id should exist and is asked to re-enter the id | KeyError: '15'  is thrown | Replace dict[] syntax with safer .get in model.selectTaskByIds | |
+| 22a | View task by id (nonexistent id) | User is informed that the id should exist and is asked to re-enter the id | Passed | | |
+| 23 | View task by name | All task fields are outputted untruncated, clearly | Passed | | |
+| 24 | View task by name (nonexistent name) | User is informed that the name should exist and is asked to re-enter the name | KeyError: 'srvd' is thrown | Apply safe .get() dict retrieval for selectTaskByNames | |
+| 24a | View task by name (nonexistent name) | User is informed that the name should exist and is asked to re-enter the name | Passed | | |
+| 25 | Create a new task | User is clearly prompted for each field, with invalid inputs being met by errors and prompts to retry | Invalid date inputs lead to "ValueError: time data 'invalidValue' does not match format '%d/%m/%Y'" beign thrown | Turn date validation into a try-catch block to stop errors from propogating | | |
+| 25a | Create a new task | User is clearly prompted for each field, with invalid inputs being met by errors and prompts to retry | Date field allows the user to retry invalid inputs. However, action confirmation prompts are vague as they only say that 'yes' will be accepted (no surrounding context for what you're agreeing to) | Add context to confirmations | |
+| 25a | Create a new task | User is clearly prompted for each field, with invalid inputs being met by errors and prompts to retry | Passed | | |
+| 26 | Create a new task (empty category) | The task category remains empty in state, but output should display "<no output>" for category | The category simply remains empty | Do not overwrite category in the controller. Replace empty category with "<no output>" only at output time | | 
+| 26a | Create a new task (empty category) | The task category remains empty in state, but output should display "<no output>" for category | Passed | | 
+| 27 | Update task | Task fields are prefilled with existing values and new task values are outputted clearly afterwards | Passed | | |
+| 28 | Delete task | Selected task is clearly outputted alongside a warning of permenance and user must confirm wanting to delete it with 'yes' | Warning and task output is present, but the following is thrown after confirmation: KeyError: 'newcategory'. This suggested that the newly-created category wasn't synchronised into taskIdsByCategory. This was confirmed by model code and extended to taskIdsByName | Synchronise taskIds indicies when updating tasks | |
+| 28a | Delete task | Selected task is clearly outputted alongside a warning of permenance and user must confirm wanting to delete it with 'yes' | Passed | | |
+| 29 | Update task | Category always seems to show as empty despite not being empty | Add default param to getConfirmedTaskCategory | | |
+| 29a | Update task | Category always seems to show as empty despite not being empty | Passed | | |
+| 30 | Quit | Exits program | Passed | | |
+
+
+Noticed a lack of confirmation messages after CRUD operations which harmed UX as the user was unsure of what exactly did or didn't happen
 # Lessons
 | Test # | Lesson |
 | --- | --- |

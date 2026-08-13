@@ -59,7 +59,9 @@ def validateTaskDescription(userInput: str) -> str | None:
 
 def validateTaskDeadline(userInput: str) -> str | None:
     if userInput != "":  # Do not try to reformat to datetime if it is not given
-        if not datetime.datetime.strptime(userInput, "%d/%m/%Y"):
+        try:
+            datetime.datetime.strptime(userInput, "%d/%m/%Y")
+        except ValueError:
             return "Task deadline must be in the format DD/MM/YYYY"
 
 

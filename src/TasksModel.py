@@ -65,7 +65,7 @@ class TasksModel:
         if not ids:
             return self._tasksById
 
-        return {str(taskId): self._tasksById[str(taskId)] for taskId in ids}
+        return {str(taskId): self._tasksById.get(str(taskId)) for taskId in ids}
 
     # TODO: Adjust methods to match prototype scope
     def selectTasksByCategories(
@@ -100,8 +100,8 @@ class TasksModel:
             return foundTasks
 
         for name in names:
-            taskId = self._taskIdsByName[name]
-            foundTasks[name] = self._tasksById[taskId]
+            taskId = self._taskIdsByName.get(name)
+            foundTasks[name] = self._tasksById.get(taskId)
 
         return foundTasks
 
@@ -129,6 +129,14 @@ class TasksModel:
     ):
         taskId = str(id)
         oldTask = self._tasksById[taskId]
+
+        if oldTask.category != category:
+            self._taskIdsByCategory[oldTask.category].remove(taskId)
+            self._taskIdsByCategory.setdefault(category, []).append(taskId)
+
+        if oldTask.name != name:
+            self._taskIdsByName.pop(oldTask.name, None)
+            self._taskIdsByName[name] = taskId
 
         self._tasksById[taskId] = Task(
             id=taskId,

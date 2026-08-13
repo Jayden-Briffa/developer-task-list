@@ -24,12 +24,18 @@ def viewTaskByName(model: TasksModel):
     return userInterface.outputTask(taskByName)
 
 
-def getConfirmedTaskCategory(model: TasksModel) -> str:
+def getConfirmedTaskCategory(model: TasksModel, default: str = "") -> str:
     while True:
         category = userInterface.getValidatedUserInput(
-            "Enter the task category: ", validation.validateTaskCategory
+            "Enter the task category: ",
+            validation.validateTaskCategory,
+            default=default,
         )
         if category not in model.selectTasksByCategories().keys():
+            print()
+            print(
+                f"This will create a new category. Are you sure you want to use the category '{category}'?"
+            )
             confirmation = userInterface.getUserInput(
                 "Only 'yes' will be accepted: ", format=False
             )
@@ -83,7 +89,7 @@ def updateTask(model: TasksModel):
         default=taskById.deadline,
     )
 
-    category = getConfirmedTaskCategory(model)
+    category = getConfirmedTaskCategory(model, default=taskById.category)
 
     result = model.updateTask(taskById.id, name, description, deadline, category)
     userInterface.outputTask(result)
@@ -96,7 +102,8 @@ def deleteTask(model: TasksModel):
     )
 
     print("Confirm deletion of the following task:\n")
-    userInterface.outputTask(taskById)
+    userInterface.outputTask(taskById, pressEnter=False)
+    print("Are you sure you want to delete this task? This action cannot be undone.")
     confirmation = userInterface.getUserInput(
         "Only 'yes' will be accepted: ", format=False
     )

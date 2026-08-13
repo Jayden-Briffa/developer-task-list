@@ -1,6 +1,9 @@
 import pytest
 from Task import Task
 from TasksModel import TasksModel
+import userInterface
+
+import helpers
 
 
 @pytest.fixture
@@ -50,3 +53,9 @@ def dummyModel(tmp_path, dummyData):
     model.saveTasks()
 
     return model
+
+
+# Block pressEnterToContinue from disrupting tests
+@pytest.fixture(autouse=True)
+def mockOutputErrorForAllTests(monkeypatch):
+    monkeypatch.setattr(userInterface, "outputError", helpers.mockOutputError)

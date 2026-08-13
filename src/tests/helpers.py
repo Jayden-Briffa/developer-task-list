@@ -25,12 +25,16 @@ def mockGetUserInputFactory(answers):
     return mockGetUserInput
 
 
-def mockOutputTask(task: Task):
+def mockOutputTask(task: Task, pressEnter=True):
     return task
 
 
 def mockOutputTasksByCategory(tasksByCategory: dict[str, Task]):
     return tasksByCategory
+
+
+def mockOutputError(msg: str):
+    print(f"ERROR: {msg}")
 
 
 # Construct an expected task and a list of dummy inputs based on an inputted dict[str, list | str]

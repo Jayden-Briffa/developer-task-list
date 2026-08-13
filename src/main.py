@@ -77,7 +77,7 @@ while True:
 
         case _:
             userInterface.outputError(
-                f"Invalid menu input. You must enter numbers (1-{len(menuChoices)}) or the full phrase"
+                f"Invalid menu input. You must enter numbers (0-{len(menuChoices) - 1}) or the full phrase"
             )
 
     controllers.saveTasks(tasksModel)

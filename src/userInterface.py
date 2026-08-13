@@ -37,6 +37,10 @@ def getUserInput(msg: str, format=True, default=""):
     return userInput
 
 
+def pressEnterToContinue():
+    getUserInput("\nPress enter to continue...")
+
+
 # TODO: Frame as normalisation rather than validation
 def validateMenuInput(userInput: str, choices: list[str]) -> str:
     for i, choice in enumerate(choices):
@@ -55,7 +59,7 @@ def getMenuInput(title, choices: list[str]) -> str | None:
         print(f"{i}. {choice}")
 
     userChoice = getUserInput(
-        f"Enter your choice (0-{len(choices) - 1} or full phrase):"
+        f"Enter your choice (0-{len(choices) - 1} or full phrase): "
     )
     validatedChoice = validateMenuInput(userChoice, choices)
 
@@ -63,24 +67,42 @@ def getMenuInput(title, choices: list[str]) -> str | None:
 
 
 def outputTasksByCategory(tasksByCategory: dict[str, Task]):
+
+    print()
+
     bannerBuffer = "-" * 3
     lBuffer = ". "
 
     for category, tasks in tasksByCategory.items():
-        print(bannerBuffer, category, bannerBuffer)
+        categoryLabel = category if category != "" else "<no output>"
+        print(bannerBuffer, categoryLabel, bannerBuffer)
 
         for task in tasks:
             print(lBuffer, f"{task.name} (#{task.id}) @ {task.deadline}")
 
+    pressEnterToContinue()
 
-def outputTask(task: Task):
+
+def outputTask(task: Task, pressEnter=True):
+
+    print()
+
     bannerBuffer = "-" * 3
+    category = task.category if task.category != "" else "<no output>"
+    description = task.description if task.description != "" else "<no description>"
+    deadline = task.deadline if task.deadline != "" else "<no deadline>"
 
     print(bannerBuffer, task.name, f"(#{task.id})", bannerBuffer)
-    print(task.description)
-    print(f"[ Deadline: {task.deadline} ]")
+    print(f"- Category: {category}")
+    print(description)
+    print(f"[ Deadline: {deadline} ]")
+
+    if pressEnter:
+        pressEnterToContinue()
 
 
 def outputError(msg: str):
     bannerBuffer = "!"
     print(bannerBuffer, "ERROR:", msg, bannerBuffer)
+
+    pressEnterToContinue()

@@ -120,6 +120,7 @@ def testSelectTasksByNames(dummyModel):
 
 
 def testUpdateTask(dummyModel):
+    originalTask = dummyModel._tasksById["2"]
     updatedTaskData = {
         "name": "newTask2",
         "description": "myNewDescription",
@@ -130,6 +131,27 @@ def testUpdateTask(dummyModel):
 
     updatedTaskData["id"] = "2"
     helpers.assertTaskHasSameValues(dummyModel._tasksById["2"], updatedTaskData)
+
+    assert "2" in dummyModel._taskIdsByCategory["category1"], (
+        "Expected updated task id to be indexed under new category.\n"
+        "expected='2' in category1\n"
+        f"actual={dummyModel._taskIdsByCategory['category1']!r}"
+    )
+    assert "2" not in dummyModel._taskIdsByCategory.get(originalTask.category, []), (
+        "Expected updated task id to be removed from old category index.\n"
+        "expected='2' not in old category\n"
+        f"actual={dummyModel._taskIdsByCategory.get(originalTask.category, [])!r}"
+    )
+    assert dummyModel._taskIdsByName.get("newTask2") == "2", (
+        "Expected updated task name to point to task id in name index.\n"
+        "expected='2'\n"
+        f"actual={dummyModel._taskIdsByName.get('newTask2')!r}"
+    )
+    assert originalTask.name not in dummyModel._taskIdsByName, (
+        "Expected old task name to be removed from name index after update.\n"
+        f"expected={originalTask.name!r} not in name index\n"
+        f"actual={dummyModel._taskIdsByName!r}"
+    )
 
 
 def testDeleteTask(dummyModel, dummyData):

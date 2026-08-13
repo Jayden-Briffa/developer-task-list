@@ -5,6 +5,8 @@ This split is inspired by REST API where data management is a core function. It 
 
 # Docstrings used to summarise files
 
+# Autosave
+
 # Model
 ## Why change the Model method names
 In the design phase, keywords like "retrieve" and "add", but these were changed to better align with widespread sql concepts like "insert" and "select" to make the limited functionality of the model clear.
@@ -62,3 +64,7 @@ Made time feel more restrictive
 
 ## Making assertion template functions
 This keeps code DRY but obscures the reason for failed assertions. Needed to manually apply error messages to report expected and actual outcomes on failure
+
+# UI
+## Press enter to continue
+pressEnterToContinue() is called after important outputs which could otherwise get lost in fast-moving text. This breaks flow when outputting errors, which is important to show the user the ussue, or maintains flow when reading large outputs like all tasks sorted by
