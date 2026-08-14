@@ -1,9 +1,7 @@
 24/07/2026
 14:30 - 17:00
     As I was initially unsure of what content should be included in the report and among all deliverables, I started by creating a basic structure for my assignment report to follow. Using worksheets from lectures and the assignment brief, I came up with the necessary sections and an idea for what I'd include in each one. From this I also clarified the perspective from which to write the report: the prototype has just been created and you need to explain/justify your choices for that prototype's development
-
     I created a flowchart showing the process of creating a task. This helped reveal some necessary decisions about how a tasks are created and categories are managed. It alos made me think about how tasks would be stored internally, which I debated between a list of Item() instances and a dictionary mapping categories to a list of classes, or single ids to relavent tasks. I decided on a combination of the latter 2 to: 1. align with procedural principles, 2. offer efficient ways to look up tasks by category and by ID. 
-
     While creating my planned functions, I realised there was a need to efficiently look up task Ids by their names. Alternatively, I could have simply made the name field unique and use that as the primary key but an ID allows for persistent tracking even when other data is changed or deleted.
 
 29/07/2026
@@ -26,18 +24,30 @@
 07/08/2026
 10:00 - 12:00, 14:00 - 15:00
     I used the tests I wrote to identify issues in my code. I found that about half the issues found were with my tests rather than the actual code, which presents a decision of whether to continue with tests. I believe keeping them will ultimately save time as they should work as intended now and will provide constant regression tests
-
+    Having written and tested the model, I moved onto writing the controllers/validation/views code. 
+    
 11/08/2026
 14:00 - 17:00
-    Focussed on writing tests
+    Focussed on writing tests to flesh out the intended end result of my code.
+    Having already spent a lot of time on the program and not so much on writing, I realised I needed to make this a 100% priority, so I decide that I wouldn't be stopping the following day until the program was finished
 
 12/08/2026
-9:00 - 12:00, 16:00
-    Continued writing tests
+9:00 - 12:00, 16:00 - 17:00
+    Continued writing tests and executing tests to find bugs. This assignment was one of my first times writing a lot of automated tests as my main method of testing
+    A key challenge was simulating user inputs, as testing the controllers and validation would be difficult if I had to manuall enter inputs each time.
+    I found monkeypatch was a potential solution to overwrite a method. Another was dependency injection, but I wanted to make my tests fit my code rather than changing my code to make the tests work
+    I later learned that monkeyatch is not reccomended for builtins like input(). Fortunately, my modularised approach led me to making a getUserInput function which I could overwrite, or mock, instead. .
+
+    I used copilot to add simple but distributed features at the end including an extra validation check for task names. This sped up development a little bit, although it made some logic errors that needed correcting, and offered an extra opinion to verify that the program met the brief.
 
 13/08/2026
-9:00 - 12:00 
-    Executed tests and improved program based on them
+9:00 - 12:00, 13:00 - 17:00
+    I moved onto the writing stage, which was helped immensely by my thorough documentation throughut the project. I had been compiling various markdown files containing test logs, points to discuss, relavent screenshots of code snippets/debugging, etc. 
+    The most useful documents were the key decisions and test logs as they helped me remember key aspects of the system and development process despite them taking place days or weeks prior. 
 
+14/08/2026
+9:30 - 11:00
+    Performed final readthroughs to catch strange wording. I caught a lot of little things like repeated sentences and missed opportunitites to more explicitely meet the brief.
+    I believe this is due to the rushed pace of the writing process as it was mostly done over the span of a day under high stress
 
-KSBs: K21, K25, S19, S22
+    Claude was helpful to point out little issues and areas for elaboration or other improvements without letting it do the work for me.

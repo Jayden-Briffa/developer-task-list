@@ -55,8 +55,3 @@
 | 38 | Update task | Category always seems to show as empty despite not being empty | Passed | | |
 | 39 | Quit | Exits program | Passed | | |
 | 40 | Abort operation | Inputting "abort" at any input sends the user back to the main menu | Passed | | |
-
-# Lessons
-| Test # | Lesson |
-| --- | --- |
-| 1 | Make sure to think about how your custom classes will interact with other packages |
