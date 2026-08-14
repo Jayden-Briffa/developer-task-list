@@ -3,7 +3,7 @@
 | Test Name | Purpose | Requirements Verified |
 |---|---|---|
 | Main menu navigation | Verify main menu is displayed and accepts numeric and case-insensitive phrase inputs | NFR1 |
-| View all tasks | Verify all stored tasks are displayed clearly with proper formatting and organization by category | FR1, FR2, FR4 |
+| View all tasks | Verify all stored tasks are displayed clearly with proper formatting and organization by category | FR1, FR2 |
 | View task by ID | Verify task details are displayed when viewing by ID, including error handling for nonexistent IDs | FR1, FR2, NFR2 |
 | View task by name | Verify task details are displayed when viewing by name, including error handling for nonexistent names | FR1, FR2, NFR2 |
 | Create task (normal) | Verify user can create a task with all fields including category, with validation and confirmation prompts | FR1, FR2 |
